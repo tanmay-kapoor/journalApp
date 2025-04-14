@@ -24,7 +24,7 @@ public class UserController {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @PutMapping("/{username}")
+  @PutMapping
   public ResponseEntity<User> updateUser(@RequestBody User user) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();

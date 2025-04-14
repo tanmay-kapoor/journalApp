@@ -92,7 +92,7 @@ public class JournalEntryController {
     User userInDb = userService.findByUsername(username);
     Optional<JournalEntry> journalEntryOptional = userInDb.getJournalEntries().stream().filter(entry -> entry.getId().equals(myId)).findFirst();
 
-    if (!journalEntryOptional.isPresent()) {
+    if (journalEntryOptional.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
