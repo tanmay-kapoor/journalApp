@@ -61,11 +61,8 @@ public class JournalEntryController {
     User user = userService.findByUsername(username);
     Optional<JournalEntry> journalEntryOptional = user.getJournalEntries().stream().filter(entry -> entry.getId().equals(myId)).findFirst();
 
-    if (journalEntryOptional.isPresent()) {
-      return new ResponseEntity<>(journalEntryOptional.get(), HttpStatus.OK);
-    }
+    return journalEntryOptional.map(journalEntry -> new ResponseEntity<>(journalEntry, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
-    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 
   @PostMapping
